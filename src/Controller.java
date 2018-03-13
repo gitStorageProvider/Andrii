@@ -1,14 +1,10 @@
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Controller {
 
     private String name;
-    private Set<Car> carSet = new HashSet<>();
+    private Set<Car> carSet = new LinkedHashSet<>();
     private int capacity;
-    private final StringBuilder stringBuilder = new StringBuilder();
 
     private Controller(String name, int capacity) {
         this.name = name;
@@ -46,6 +42,7 @@ public class Controller {
     }
 
     public String getCarListByBrand(String brand) {
+        final StringBuilder stringBuilder = new StringBuilder();
         if (capacity == 0 || carSet.isEmpty()) {
             stringBuilder.append("Cars lot is empty");
         } else {
@@ -61,11 +58,13 @@ public class Controller {
     }
 
     public String getCarListByModelAndYears(String model, int years) {
+        final StringBuilder stringBuilder = new StringBuilder();
         if (capacity == 0 || carSet.isEmpty()) {
             stringBuilder.append("Cars lot is empty");
         } else {
             for (Car car : carSet) {
-                if (car.getModel().equals(model) && GregorianCalendar.getInstance().get(Calendar.YEAR) - car.getYearOfRelease() > years) {
+                if (car.getModel().equals(model) && GregorianCalendar.getInstance().get(Calendar.YEAR)
+                        - car.getYearOfRelease() > years) {
                     stringBuilder.append("\t");
                     stringBuilder.append(car);
                     stringBuilder.append("\n");
@@ -76,11 +75,12 @@ public class Controller {
     }
 
     public String getCarListByYearAndPrice(int year, double price) {
+        final StringBuilder stringBuilder = new StringBuilder();
         if (capacity == 0 || carSet.isEmpty()) {
             stringBuilder.append("Cars lot is empty");
         } else {
             for (Car car : carSet) {
-                if (car.getYearOfRelease().equals(year) && car.getPrice() > price) {
+                if (car.getYearOfRelease() == year && car.getPrice() > price) {
                     stringBuilder.append("\t");
                     stringBuilder.append(car);
                     stringBuilder.append("\n");
@@ -126,6 +126,7 @@ public class Controller {
 
     @Override
     public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Controller ");
         stringBuilder.append(name);
         stringBuilder.append(", capacity: ");
